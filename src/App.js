@@ -22,6 +22,30 @@ class App extends Component {
 
 export default App;
 
-const hello = () => ({ welcome: 'hello' });
-const store = createStore(hello);       // accept a function
+const defaultState = {
+  welcome: 'Hi',
+  otherState: 'some stuff'
+}
+
+// reducer() is a function that take in the current state and determine which action to modify the state
+// create a new state object with the "Modifying" state, DO NOT modify the actual data store
+const greeting = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'GREET_ME':
+      return { ...state, welcome: 'Hello Poyo' }  // ...state = get all the properties from the current state, then overwrite welcome state
+    case 'GREET_WORLD':
+      return { ...state, welcome: 'Hello World' }
+    default:
+      return state;
+  }
+};
+
+const store = createStore(greeting);       // accept a function
+
+// action is an object not a function. Description of what action to do
+store.dispatch({
+  type: 'GREET_ME'
+})
+
+
 console.log(store.getState());
