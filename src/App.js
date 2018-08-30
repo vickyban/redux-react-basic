@@ -32,7 +32,7 @@ const defaultState = {
 const greeting = (state = defaultState, action) => {
   switch (action.type) {
     case 'GREET_ME':
-      return { ...state, welcome: 'Hello Poyo' }  // ...state = get all the properties from the current state, then overwrite welcome state
+      return { ...state, welcome: `Hello ${action.result}` }  // ...state = get all the properties from the current state, then overwrite welcome state
     case 'GREET_WORLD':
       return { ...state, welcome: 'Hello World' }
     default:
@@ -42,9 +42,12 @@ const greeting = (state = defaultState, action) => {
 
 const store = createStore(greeting);       // accept a function
 
+const result = 'something coming back from an api';
+
 // action is an object not a function. Description of what action to do
 store.dispatch({
-  type: 'GREET_ME'
+  type: 'GREET_ME',
+  result   // == result: result
 })
 
 
